@@ -1,0 +1,51 @@
+[user]
+        name = eyalm
+        email = eyalm@il.ibm.com
+[color]
+        ui = auto
+        diff = auto
+        status = auto
+        branch = auto
+[core]
+    excludesfile = /a/home/eyalm/.gitignoreglobal
+    ignorecase = true
+[alias]
+    trash = !git add . && git commit -m 'trash' && git reset --hard HEAD^
+[push]
+    default = tracking
+
+# Use p4merge as graphical mergetool 
+[merge]
+    tool = p4merge
+    keepBackup = false
+[mergetool]
+    prompt = no
+[mergetool.p4merge]
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    path = /home/eyalm/Downloads/p4v-2010.2.334844/bin/p4merge
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
+
+# Same for difftool
+[diff]
+    tool = p4merge
+    mnemonicprefix = true
+[difftool]
+    prompt = no
+[difftool.p4merge]
+    cmd = p4merge "$LOCAL" "$REMOTE"
+    path = /home/eyalm/Downloads/p4v-2010.2.334844/bin/p4merge
+
+
+# Useful aliases:
+[alias]
+    trash = !git add . && git commit -m 'trash' && git reset --hard HEAD^
+    propose = !git push origin +HEAD:$USER/proposed/$(git-symbolic-ref HEAD | sed 's/^refs\\/heads\\///')
+    unpropose = !git push origin +:$USER/proposed/$(git-symbolic-ref HEAD | sed 's/^refs\\/heads\\///')
+    integrate = !git push origin +HEAD:$USER/integrate/$(git-symbolic-ref HEAD | sed 's/^refs\\/heads\\///')
+    unintegrate = !git push origin +:$USER/integrate/$(git-symbolic-ref HEAD | sed 's/^refs\\/heads\\///')
+
+    # Provide a nice, compact format for the git log (use with `git lg`)
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset %Cred[%an]%Creset' --abbrev-commit --date=relative
+
